@@ -37,14 +37,9 @@ public class StockManager
      */
     public void delivery(int id, int amount)
     {
-        if(id >= 0 || id <= stock.size())
-        {
-            stock.get(id).increaseQuantity(amount);
-        }
-        else
-        {
-            System.out.println("error, no existe ese id");
-        }
+        Product encontrado = findProduct(id);
+        encontrado.increaseQuantity(amount);
+        
     }
     
     /**
@@ -55,9 +50,16 @@ public class StockManager
     public Product findProduct(int id)
     {
         Product find = null;
-        if(id >= 0 || id <= stock.size())
+        int contador = 0;
+        boolean valor = false;
+        while (contador > stock.size() && valor == false)
         {
-            find = stock.get(id);
+             if (find.getID() == id)
+            {
+                find = stock.get(contador);
+                valor = true;
+            }
+            contador++;
         }
         return find;
     }
@@ -72,9 +74,12 @@ public class StockManager
     public int numberInStock(int id)
     {
         int cantidad = 0;
-        if(id >= 0 || id <= stock.size())
+       for (Product product : stock)
         {
-            cantidad = stock.get(id).getQuantity();
+            if (product.getID() == id)
+            {
+                product.getQuantity();
+            }
         }
         return cantidad;
     }
